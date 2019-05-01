@@ -6,115 +6,85 @@
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css">
     </head>
 
-    <body>
-        <div class="background">
-        </div>
-        <div class="header">
-            <p>
-                <a class="emma" href="index.html">emma</a>
-            </p>
-            <p>
-                <a class="about" href="resume.pdf">resume</a>
-            </p>
-        </div>
-        <div class="mainContainer">
-            <div class="leftTextContainer">
-                <p class="headline">
-                    — Hi I’m Emma. I'm an Electrical Engineering student at the University of Waterloo.    
-                </p>
-            </div>
-            <div class="rightTextContainer">
-                <p class="subheadline">
-                    I'm passionate about consumer electronics, robotics, and human-machine interfaces. I'm currently looking for a co-op for Fall 2019.
-                    <br> <a href="about.html" class="link2">more about me</a>
-                    <br>
-                    <br>
-                    <p class="subheadline"> <span class="detail">↓</span> Scroll down to see some of my work </p>
-                </p>
-            </div>
-        </div>
-        <div class="mainContentContainer">
-            <a href="robotics.html">
-                <div class="contentContainer" id="content2">
-                    <div class="labelContainer" id="label2">
-                        <p class="label3" id="label23">
-                            View work —
-                        </p>
-                        <div class="titleContainer">
-                            <p class="label1" id="label21">
-                                UW Robotics Team
-                            </p>
-                            <p class="label2" id="label22">
-                                Electrical Co-lead
-                            </p>
-                        </div>
-                    </div>
-                    <div class="imageContainer">
-                        <div class="image1" id="image2" style="background-image: url(img/home/full_robot.png)">
-                        </div>
-                    </div>
+    <body class="sans-serif pt5">
+        <div class="mw9 ma5-ns center mb5">
+            <div class="cf flex justify-center">
+                <div class="fl flex justify-center w-100 w-50-l mh3">
+                    <h1> —Hi, I'm Emma. I'm an Electrical Engineering student at the University of Waterloo.</h1>
                 </div>
-            </a>
-            <a href="classdamp.html">
-                    <div class="contentContainer" id="content2">
-                        <div class="labelContainer" id="label2">
-                            <p class="label3" id="label23">
-                                View work —
-                            </p>
-                            <div class="titleContainer">
-                                <p class="label1" id="label21">
-                                    Class-D Amplifier
-                                </p>
+                <div class="fl flex flex-column justify-center w-100 w-50-l mh3">
+                    <p class="lh-copy">
+                        I'm passionate about consumer electronics, robotics, and human-machine interfaces. I'm currently looking for a Fall 2019 co-op position.
+                    </p>
+                    <p class="lh-copy">
+                        ↓ Scroll down to see some of my work 
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="pt5-ns"></div>
+
+        <!-- Main content -->
+        <div class="mw9 center bg-washed-blue">
+            <!-- UW Robotics Team -->
+            <div class="pb5-ns">
+                <a class="no-underline" href="">
+                    <div style="height: 20rem;" class="cf flex items-center overflow-hidden ma5-ns ph4-ns pv5-ns">
+                        <div class="fl w-100 w-two-thirds-l">
+                            <div class="flex flex-column">
+                                <h3 class="mv0 pb1 black">UW Robotics Team</h3>
+                                <h4 class="mv0 light-silver">Electrical Co-lead</h4>
                             </div>
                         </div>
-                        <div class="imageContainer">
-                            <div class="image1" id="image2" style="background-image: url(img/home/classdamp_breadboard.jpeg)">
-                            </div>
+                        <div class="fl flex w-100 w-one-third-l">
+                            <div class="img w-100" style="height: 20rem; background-image: url(img/home/full_robot.png)"></div>
                         </div>
                     </div>
                 </a>
-                <a href="touchsensor.html">
-                        <div class="contentContainer" id="content2">
-                            <div class="labelContainer" id="label2">
-                                <p class="label3" id="label23">
-                                    View work —
-                                </p>
-                                <div class="titleContainer">
-                                    <p class="label1" id="label21">
-                                        Touch-Activated LED Array
-                                    </p>
+            </div>
+
+            <!-- Class D amplifier -->
+            <div class="pb5-ns">
+                <a class="no-underline" href="">
+                    <div style="height: 20rem;" class="cf flex items-center overflow-hidden ma5-ns ph4-ns pv5-ns">
+                        <div class="fl w-100 w-two-thirds-l">
+                            <div class="flex flex-column">
+                                <h3 class="mv0 pb1 black">Class D Amplifier with Discrete Driver Stage</h3>
+                                <h4 class="mv0 light-silver">Analog Circuits Project</h4>
+                            </div>
+                        </div>
+                        <div class="fl flex w-100 w-one-third-l">
+                            <div class="img w-100" style="height: 20rem; background-image: url(img/home/classdamp.jpeg)"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Pressure-sensor LED Array -->
+            <div class="pb5-ns">
+                    <a class="no-underline" href="">
+                        <div style="height: 20rem;" class="cf flex items-center overflow-hidden ma5-ns ph4-ns pv5-ns">
+                            <div class="fl w-100 w-two-thirds-l">
+                                <div class="flex flex-column">
+                                    <h3 class="mv0 pb1 black">Pressure-Sensor LED Array</h3>
+                                    <h4 class="mv0 light-silver">Analog Circuits Project</h4>
                                 </div>
                             </div>
-                            <div class="imageContainer">
-                                <div class="image1" id="image2" style="background-image: url(img/home/led_array.jpg)">
-                                </div>
+                            <div class="fl flex w-100 w-one-third-l">
+                                <div class="img w-100" style="height: 20rem; background-image: url(img/home/led_array.jpg)"></div>
                             </div>
                         </div>
                     </a>
-                    <a href="workshops.html">
-                            <div class="contentContainer" id="content2">
-                                <div class="labelContainer" id="label2">
-                                    <p class="label3" id="label23">
-                                        View work —
-                                    </p>
-                                    <div class="titleContainer">
-                                        <p class="label1" id="label21">
-                                            Robotics Workshops
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="imageContainer">
-                                    <div class="image1" id="image2" style="background-image: url(img/home/robotics_workshop.jpg)">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                </div>
+        </div>
+        
     </body>
 </html>
