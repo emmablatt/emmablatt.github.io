@@ -10,31 +10,132 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="style.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
-    <body>
+    <body class="roboto">
         <!-- Header -->
-        <div class="mt-5 pt-5 d-sm-none"></div>
+        <div class="mt-5 pt-5 d-none d-md-block"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md d-flex">
+                <div class="col-md d-flex mx-2">
                     <h2>
                         —Hi, I'm Emma. I'm an Electrical Engineering student at the University of Waterloo.
                     </h2>
                 </div>
-                <div class="col-md d-flex flex-column justify-content-center">
-                    <p>
+                <div class="col-md d-flex flex-column mx-2">
+                    <p class="text-dark-grey">
                         I'm passionate about consumer electronics, robotics, and human-machine interfaces. I'm currently looking for a Fall 2019 co-op position.
                     </p>
-                    <p>
+                    <a class="text-grey link" href="">see my resume →</a>
+                    <br>
+                    <p class="text-dark-grey">
                         ↓ Scroll down to see some of my work
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="mt-5 pt-5 d-none d-md-block"></div>
+
+        <!-- Projects -->
+        <div style="background-color: #f9f9f9;">
+            <a class="project-container" href="">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="d-flex col-md-4 flex-column justify-content-center">
+                            <div class="d-flex">
+                               <p class="pr-3 text-black">UW Robotics Team</p>
+                               <p class="text-grey">Electrical Co-lead</p>
+                            </div>
+                            <div>
+                                <span id="project-hover" class="text-grey">View work—</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 img-container">
+                            <div class="img w-100" style="background-image: url(img/home/full_robot.png)"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="project-container" href="">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="d-flex col-md-4 flex-column justify-content-center">
+                            <div class="d-flex">
+                                <p class="pr-3 text-black">Class D Amplifier</p>
+                                <p class="text-grey">Analog</p>
+                            </div>
+                            <div>
+                                <span id="project-hover" class="text-grey">View work—</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 img-container">
+                            <div class="img w-100" style="background-image: url(img/home/classdamp.jpeg)"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="project-container" href="">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="d-flex col-md-4 flex-column justify-content-center">
+                            <div class="d-flex">
+                                <p class="pr-3 text-black">Pressure-Sensor LED Array</p>
+                                <p class="text-grey">Analog</p>
+                            </div>
+                            <div>
+                                <span id="project-hover" class="text-grey">View work—</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 img-container">
+                            <div class="img w-100" style="background-image: url(img/home/led_array.jpg)"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="project-container" href="">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="d-flex col-md-4 flex-column justify-content-center">
+                            <div class="d-flex">
+                                <p class="pr-3 text-black">Robotics Workshops</p>
+                                <p class="text-grey">Teaching</p>
+                            </div>
+                            <div>
+                                <span id="project-hover" class="text-grey">View details—</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 img-container">
+                            <div class="img w-100" style="background-image: url(img/home/robotics_workshop.jpg)"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a class="project-container" href="">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="d-flex col-md-4 flex-column justify-content-center">
+                            <div class="d-flex">
+                                <p class="pr-3 text-black">Secret Knock Safe</p>
+                                <p class="text-grey">Embedded</p>
+                            </div>
+                            <div>
+                                <span id="project-hover" class="text-grey">View work—</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 img-container">
+                            <div class="img w-100" style="background-image: url(img/home/safe.jpg)"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
 
     </body>

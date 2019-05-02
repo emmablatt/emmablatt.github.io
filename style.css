@@ -1,16 +1,64 @@
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
 .img {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    height: 300px;
+    transition: 0.5s ease;
+    transform: scale(1,1);
 }
 
-.img:hover {
+.img-container {
+    display: flex;
+    align-items: center;
+    height: 300px;
+    overflow: hidden;
+}
+
+.project-container {
+    text-decoration: none !important;
+    transition: 0.5s ease;
+}
+
+.project-container div span#project-hover {
+    opacity: 0;
+    transition: 0.5s ease;
+}
+
+.project-container:hover .img {
     transform: scale(1.01,1.01);
     transition: 0.5s ease;
     box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.05);
 }
 
-.roboto {
-    font-family: 'Roboto', sans-serif;
-    font-size: 48px;
+.project-container:hover span#project-hover {
+    opacity: 1;
+    transition: 0.5s ease;
+}
+
+.text-grey {
+    color: #a5a5a5;
+}
+
+.text-black {
+    color: black;
+}
+
+.text-dark-grey {
+    color: #7f7f7f;
+}
+
+.link {
+    text-decoration:none;
+    transition: 0.5s ease;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: black;
+    transform: translateX(5px);
+    transition: 0.5s ease;
 }
