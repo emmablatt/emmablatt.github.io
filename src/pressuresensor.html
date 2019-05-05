@@ -93,14 +93,31 @@
 
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-4">
                         <h4>—Basic Functionality</h4>
                     </div>
                     <div class="col-md">
-                        <p></p>
+                        <p>The main purpose of the circuit is to turn on LEDs proportional to the force applied to the sensor. I did this using comparators that take the input from the FSR voltage divider and compares it to a fixed reference voltage (set by a divider). If the input voltage is higher than the reference voltage, then the output will be LOW and the LED will turn on. </p>
+                        <img src="../img/led/led_comparator_schematic.png" class="img-fluid" />
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>The LEDs</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>I calculated the series resistor values so that 20mA of current will flow through each LED. The voltage drop across the LED depends on the color of the LED, but in general it ranges from 2V to 3V.</p>
+                        <p>I chose to use Lumex Opto Inc. clear surface mount LEDs (1206) because they are manufactured in the desired colors: 2x red, 2x orange, 2x yellow, 2x green.</p>
+                        <img src="../img/led/iteration_1_back.JPG" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-3 figure-caption">First iteration of LED array board (back side)</figcaption>
+                        </div>
+                    </div>
+
+
+                </div>
+                
             </div>
         </div>
                
@@ -108,23 +125,49 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Board Layout</h4>
+                        <h4>—Strobe</h4>
                     </div>
                     <div class="col-md">
-                    
+                        <p>When the strobe button is pressed, the input line to the comparators is pulled to GND and the 555 timer is enabled. </p>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>555 Timer</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>The 555 timer is configured in astable mode, so it operates as an oscillator. The trigger and threshold pins are tied together since there is no external trigger pulse. The output frequency will be proportional to the RC time constant created by the series resistors and the capacitor. There is a potentiometer connected between discharge and trigger/threshold to control the rate of the output (strobe rate). </p>
+                        <p>The strobe frequency ranges from around 90Hz to 1kHz. </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Decade counter</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>The 555 timer controls the strobe rate of the decade counter. Each output of the decade counter is connected to a MOSFET that will turn on the LEDs, and the last output will reset the decade counter to turn on the first LED again. </p>
+                        <img src="../img/led/strobe_schematic.png" class="img-fluid" />
+                    </div>
+                </div>
+            </div> 
         </div>
 
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Board Respin</h4>
+                        <h4>—Board Layout</h4>
                     </div>
                     <div class="col-md">
-                    
+                        <img src="../img/led/led_board_back.png" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-3 figure-caption">Front of board (LEDs, pressure sensor, strobe button)</figcaption>
+                        </div>
+                        <img src="../img/led/led_board_front.png" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-3 figure-caption">Back of board (comparators, 555 timer, decade counter)</figcaption>
+                        </div>
+                        <p>The red copper pour is the +9V supply, and the blue copper pour is the ground plane. The project is powered with a +9V battery.</p>
                     </div>
                 </div>  
             </div>
@@ -134,10 +177,11 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Takeaways</h4>
+                        <h4>—Board Respin</h4>
                     </div>
                     <div class="col-md">
-                    
+                        <p>Nothing is ever perfect on the first try. For the first iteration of this board, I reversed the inputs to the comparators (so the LEDs turned off when they were supposed to turn on), and used the wrong footprint for the decade counter.</p>
+                        <p>The next iteration is currently in the works, and I'll have a working video of the project up soon :)</p>
                     </div>
                 </div>
             </div>
