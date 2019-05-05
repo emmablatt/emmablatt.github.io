@@ -18,7 +18,7 @@
 
     <body class="roboto">
         <div class="pb-5 d-none d-md-block"></div>
-        <a class="text-grey pl-5 link zindex-sticky" href="index.html">back</a>
+        <a class="text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="index.html">back</a>
         <!-- Header -->
         <div class="mt-5 pt-5"></div>
         <div class="container">
@@ -38,8 +38,7 @@
 
         <div class="container">
             <div class="mt-5 mb-2 col-md-9 container embed-responsive embed-responsive-21by9">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/kkgOcfMAVQg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_iLCDqRF-YM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
             <div class="d-flex justify-content-center">
                 <figcaption class=" mb-5 figure-caption">Class-D Amplifier Prototype</figcaption>
             </div>
@@ -47,24 +46,48 @@
 
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
-                <div class="row">
-                    <div class="col">
+                <div class="row mb-3">
+                    <div class="col-md-4">
                         <h4>—Starting Point</h4>
                     </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p>As a music lover, I thought that it would be a fun project because it combines analog and digital circuitry to create a relatively efficient speaker. </p>
+                        <a class="link text-grey" href="">You can find the schematic capture files, pcb layout files, and Gerber files here →</a>
+                        <p class="mt-3">I started with a block diagram for a standard class-d amplifier:</p>
+                        <img src="../img/classdamp/classdamp_block.png" class="img-fluid" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Some notes</h5>
+                    </div>
+                    <div class="col-md">
+                        <p><b>Aux in</b>: The signal (when measured) was around 500mV.</p>
+                        <p><b>200kHz triangle wave</b>: 200kHz is 10x the upper limit of human hearing, so the sound quality will be maintained when the audio signal is encoded as a time-varying PWM signal. </p>
+                        <p><b>Comparator</b>: Propagation delays of the selected component need to be much lower than 5us (the frequency of the triangle wave)  </p>
+                        <p><b>Dead-time generator</b>: The high-side and low-side MOSFETs cannot be on at the same time.</p>
+                        <p><b>MOSFET 1/2 bridge</b>: The selected switches should have similar switching characteristics. </p>
+                        <p><b>Low Pass Filter</b>: Most class-D amplifiers utilize an LC filter, and the cut-off frequency should be around 30kHz. </p>
                     </div>
                 </div>
             </div>
         </div>
+
         <div style="background-color: white;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
-                        <h4>—Challenges</h4>
+                    <div class="col-md-4">
+                        <h4>—Dead-time Generator</h4>
                     </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p>In the half-bridge configuration, if both MOSFETS are on at the same time, a short will be created from V+ to V- (aka shoot-through), which draws a significant amount of current and heats up the MOSFETs. </p>
+                        <p>To avoid this, I designed a circuit to ensure that the pmos does not turn on when the nmos is on. The RC network ensures that the input taken above the capacitor will go HIGH after the input taken above the resistor. </p>
+                        <img src="../img/classdamp/deadtime.png" class="img-fluid" />
+                        <p class="mt-3">The time constant for this RC network is (1K)(500pF) = 0.5us, which accounts for the propagation delays and rise times for the selected MOSFETs, and is less than the maximum frequency of the square wave (which is 5us).</p>
+                        <img src="../img/classdamp/deadtime_sim.png" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-5 figure-caption">Green trace = OR gate output, red trace = AND gate output </figcaption>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,86 +96,124 @@
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-4">
+                        <h4>—Gate Drivers</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>To drive the gates of the PMOS (high-side driver) and the NMOS (low-side driver), I level-shifted the outputs of the AND gate and the OR gate to properly bias the gate of each MOSFET. </p>
+                        <img src="../img/classdamp/level_shift.png" class="img-fluid" />
+                        <img src="../img/classdamp/level_shift_sim.png" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-5 figure-caption">Green trace = NMOS driver, red trace = PMOS driver</figcaption>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: white">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>—Low Pass Filter</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>Before driving the speaker, I put the digital encoding of the audio signal through a low pass filter to filter out the high-frequency components and get the analog signal back. I used a cut-off frequency of 35kHz and a passive LC filter.</p>
+                        <p>Since the output of the low-pass filter is the speaker, I took into account the 8 ohm resistance when calculating values for the inductor and capacitor. </p>
+                        <img src="../img/classdamp/ac_sweep_filter.png" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: #f9f9f9">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>—Simulation</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>Before prototyping the circuit, I downloaded LTSpice models and simulated the second-half of the circuit (from the comparator to the output) to ensure proper functionality.</p>
+                        <img src="../img/classdamp/amp_sim.png" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
                         <h4>—Schematic</h4>
                     </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <img src="../img/classdamp/amp_schematic.png" class='img-fluid'/>
                     </div>
                 </div>
             </div>
         </div>
                 
-        <div style="background-color: white">
+
+ 
+        <div style="background-color: white;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-4">
                         <h4>—Prototype</h4>
                     </div>
-                    <div class="col">
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
- 
-        <div style="background-color: #f9f9f9;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col">
-                        <h4>—Debugging</h4>
-                    </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p>Before designing the board, I thought it was important to prototype the circuit to make sure it functions as expected. </p>
                     </div>
                 </div>  
             </div>
         </div>
                
-        <div style="background-color: white;">
+        <div style="background-color: #f9f9f9;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-4">
                         <h4>—Board Layout</h4>
                     </div>
-                    <div class="col">
+                    <div class="col-md">
                     
                     </div>
                 </div>
             </div>
         </div>
                 
-        <div style="background-color: #f9f9f9;">
+        <div style="background-color: white;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-4">
                         <h4>—Takeaways</h4>
                     </div>
-                    <div class="col">
+                    <div class="col-md">
                     
                     </div>
                 </div>
             </div>
-            <ul class="nav pb-3 d-flex justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="index.html">home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="uwrobotics.html">robotics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black link" href="classdamp.html">class-d amp</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="pressuresensor.html">pressure-sensor LED array</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="workshops.html">workshops</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="safe.html">secret knock safe</a>
-                </li>
-            </ul>
+            <div class="container pb-3 d-none d-lg-block">
+                <div class="row d-flex align-items-center col-md-9 mx-auto">
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="index.html">home</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="uwrobotics.html">robotics</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-black link" href="classdamp.html">class-d amp</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="pressuresensor.html">pressure-sensor LED array</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="workshops.html">workshops</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="safe.html">secret knock safe</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         
