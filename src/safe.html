@@ -18,7 +18,7 @@
 
     <body class="roboto">
         <div class="pb-5 d-none d-md-block"></div>
-        <a class="text-grey pl-5 link zindex-sticky" href="index.html">back</a>
+        <a class="text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="index.html">back</a>
         <!-- Header -->
         <div class="mt-5 pt-5"></div>
         <div class="container">
@@ -30,20 +30,28 @@
                 </div>
                 <div class="col-md-6 d-flex flex-column mx-2">
                     <p class="text-dark-grey mb-0">
-                        I designed and built a Class-D Amplifier with a discrete driver stage to explore analog signal processing and the basics of audio amplification.
+                            I built, soldered, coded, and tested a digital safe that can be unlocked with a secret knock sequence.
                     </p>
+                    <p class="mb-0"><b>Tools</b>: Arduino</p>
+                    <p><b>Keywords</b>: Ultrasonic sensor, piezoelectric sensor, LED matrix</p>
+                    <a target="_blank" href="https://github.com/emmablatt/safe/blob/master/BockinKnox__final.ino.ino" class="link text-dark-grey">See the full source code here →</a>
                 </div>
             </div>
+            <div class="mt-5 mb-2 col-md-9 container embed-responsive embed-responsive-21by9 mb-5">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/676JyBSOkYU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
         </div>
 
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
-                        <h4>—Starting Point</h4>
+                    <div class="col-md-4">
+                        <h4>—Project Requirements</h4>
                     </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p>I built this project with a partner as the cumulative project for my Digital Systems course. The theme for our class was "Security". As a basic requirement, we had to include timers, interrupts, and hardware/sensors.</p>
+                        <p>We used Arduino for this project and we created our own custom Timer code to use for interrupts and timing.</p>
+                        <img src="../img/safe/safe_schematic.png" class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -51,11 +59,13 @@
         <div style="background-color: white;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
-                        <h4>—Challenges</h4>
+                    <div class="col-md-4">
+                        <h4>—Sensors</h4>
                     </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p><b>Piezoelectric sensor:</b> We used this sensor to identify knocks by way of vibration. We taped the piezo element to the underside of the knocking surface. We calibrated the sensor before each use by reading the output from knocking and setting a "knocking threshold voltage".</p>
+                        <p><b>Ultrasonic sensors:</b> We used the ultrasonic sensor to determine when a person was in front of the safe. It determined distance by taking half of the speed of sound from an identified object. If the user stepped away from the safe at any time, it would shut off.</p>
+                        <img src="../img/safe/safe_inside.jpg" class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -64,11 +74,12 @@
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
-                        <h4>—Schematic</h4>
+                    <div class="col-md-4">
+                        <h4>—LED Matrix</h4>
                     </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p>We used an LED Matrix to indicate success or failure of a knock attempt. If the user entered the incorrect knock sequence, the safe flashed red and locked for 5 seconds before another attempt was allowed. If the user entered the correct knock sequence, the LEDs flashed blue and the safe opened.</p>
+                        <img src="../img/safe/safe_outside.jpg" class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -77,74 +88,37 @@
         <div style="background-color: white">
             <div class="container py-5">
                 <div class="row">
-                    <div class="col">
-                        <h4>—Prototype</h4>
+                    <div class="col-md-4">
+                        <h4>—Knocking Algorithm</h4>
                     </div>
-                    <div class="col">
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
- 
-        <div style="background-color: #f9f9f9;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col">
-                        <h4>—Debugging</h4>
-                    </div>
-                    <div class="col">
-                    
-                    </div>
-                </div>  
-            </div>
-        </div>
-               
-        <div style="background-color: white;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col">
-                        <h4>—Board Layout</h4>
-                    </div>
-                    <div class="col">
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-                
-        <div style="background-color: #f9f9f9;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col">
-                        <h4>—Takeaways</h4>
-                    </div>
-                    <div class="col">
-                    
+                    <div class="col-md">
+                        <p>To determine if the knock sequence was correct, we created an array that measured the times between the 5 most recent knocks. If, within a margin of error, the times matched the array that we set to be the "correct sequence", the safe unlocked. Otherwise, the safe locked for 5 seconds before allowing another knocking attempt.</p>
                     </div>
                 </div>
             </div>
 
-            <ul class="nav pb-3 d-flex justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="index.html">home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="uwrobotics.html">robotics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="classdamp.html">class-d amp</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="pressuresensor.html">pressure-sensor LED array</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-grey link" href="workshops.html">workshops</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-black link" href="safe.html">secret knock safe</a>
-                </li>
-            </ul>
+            <div class="container pb-3 d-none d-lg-block">
+                <div class="row d-flex align-items-center col-md-9 mx-auto">
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="index.html">home</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="uwrobotics.html">robotics</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="classdamp.html">class-d amp</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="pressuresensor.html">pressure-sensor LED array</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="workshops.html">workshops</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-black link" href="safe.html">secret knock safe</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         
