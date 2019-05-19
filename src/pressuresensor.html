@@ -10,21 +10,24 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
         <link rel="stylesheet" href="../style.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
-    <body class="roboto">
+    <body class="open-sans">
         <div class="pb-5 d-none d-md-block"></div>
-        <a class="text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="index.html">back</a>
-        <!-- Header -->
+        <a class="d-none d-md-block text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
+        <a class="d-block d-sm-block d-md-none text-grey pl-1 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
         <div class="mt-5 pt-5"></div>
         <div class="container">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-5 d-flex mx-2">
-                    <h3>
+                    <h3 class="pt-serif">
                         —Pressure-Sensor LED Array
                     </h3>
                 </div>
@@ -48,7 +51,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—The Sensor</h4>
+                        <h4 class="pt-serif">—The Sensor</h4>
                     </div>
                     <div class="col-md">
                         <p class="mb-0">There are various types of pressure sensors that could have worked in this application. I chose to use a <b>force-sensitive resistor (FSR)</b> because it is easy to implement and relatively inexpensive.</p>
@@ -80,7 +83,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Overview</h4>
+                        <h4 class="pt-serif">—Overview</h4>
                     </div>
                     <div class="col-md">
                         <img src="../img/led/led_block.png" class="img-fluid" />
@@ -95,7 +98,7 @@
             <div class="container py-5">
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <h4>—Basic Functionality</h4>
+                        <h4 class="pt-serif">—Basic Functionality</h4>
                     </div>
                     <div class="col-md">
                         <p>The main purpose of the circuit is to turn on LEDs proportional to the force applied to the sensor. I did this using comparators that take the input from the FSR voltage divider and compares it to a fixed reference voltage (set by a divider). If the input voltage is higher than the reference voltage, then the output will be LOW and the LED will turn on. </p>
@@ -104,7 +107,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>The LEDs</h5>
+                        <h5 class="pt-serif">The LEDs</h5>
                     </div>
                     <div class="col-md">
                         <p>I calculated the series resistor values so that 20mA of current will flow through each LED. The voltage drop across the LED depends on the color of the LED, but in general it ranges from 2V to 3V.</p>
@@ -125,7 +128,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Strobe</h4>
+                        <h4 class="pt-serif">—Strobe</h4>
                     </div>
                     <div class="col-md">
                         <p>When the strobe button is pressed, the input line to the comparators is pulled to GND and the 555 timer is enabled. </p>
@@ -133,7 +136,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>555 Timer</h5>
+                        <h5 class="pt-serif"> 555 Timer</h5>
                     </div>
                     <div class="col-md">
                         <p>The 555 timer is configured in astable mode, so it operates as an oscillator. The trigger and threshold pins are tied together since there is no external trigger pulse. The output frequency will be proportional to the RC time constant created by the series resistors and the capacitor. There is a potentiometer connected between discharge and trigger/threshold to control the rate of the output (strobe rate). </p>
@@ -142,7 +145,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>Decade counter</h5>
+                        <h5 class="pt-serif">Decade counter</h5>
                     </div>
                     <div class="col-md">
                         <p>The 555 timer controls the strobe rate of the decade counter. Each output of the decade counter is connected to a MOSFET that will turn on the LEDs, and the last output will reset the decade counter to turn on the first LED again. </p>
@@ -156,7 +159,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Board Layout</h4>
+                        <h4 class="pt-serif">—Board Layout</h4>
                     </div>
                     <div class="col-md">
                         <img src="../img/led/led_board_back.png" class="img-fluid" />
@@ -177,7 +180,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Board Respin</h4>
+                        <h4 class="pt-serif">—Board Respin</h4>
                     </div>
                     <div class="col-md">
                         <p>Nothing is ever perfect on the first try. For the first iteration of this board, I reversed the inputs to the comparators (so the LEDs turned off when they were supposed to turn on), and used the wrong footprint for the decade counter.</p>
@@ -189,7 +192,7 @@
             <div class="container pb-3 d-none d-lg-block">
                 <div class="row d-flex align-items-center col-md-9 mx-auto">
                     <div class="col-md-auto">
-                        <a class=" text-grey link" href="index.html">home</a>
+                        <a class=" text-grey link" href="../index.html">home</a>
                     </div>
                     <div class="col-md-auto">
                         <a class=" text-grey link" href="uwrobotics.html">robotics</a>

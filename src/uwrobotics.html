@@ -10,21 +10,25 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
         <link rel="stylesheet" href="../style.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
-    <body class="roboto">
+    <body class="open-sans">
         <div class="pb-5 d-none d-md-block"></div>
-        <a class="text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="index.html">back</a>
+        <a class="d-none d-md-block text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
+        <a class="d-block d-sm-block d-md-none text-grey pl-1 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
         <!-- Header -->
         <div class="mt-5 pt-5"></div>
         <div class="container">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-4 d-flex mx-2">
-                    <h3>
+                    <h3 class="pt-serif">
                         —UW Robotics Team
                     </h3>
                 </div>
@@ -43,7 +47,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—System Overview</h4>
+                        <h4 class="pt-serif">—System Overview</h4>
                     </div>
                     <div class="col-md">
                         <p>At the University Rover Challenge, there are four competition challenges:</p>
@@ -53,7 +57,7 @@
                             <li>Equipment Servicing Task</li>
                             <li>Autonomous Traversal Task</li>
                         </ul>
-                        <p>As electrical lead, the other co-lead and I divided up tasks for the design and testing of the electrical subsystems. At a high level, we use CAN to communicate between our custom boards and the Jetson TX2 (which sends signals to the base station via the 900MHz and 1.2GHz routers). We use I2C to send data from the custom current sensor boards to the control boards.</p>
+                        <p>As electrical lead, the other co-lead and I divided up tasks for the design and testing of the electrical subsystems. At a high level, we use CAN to communicate between our custom boards and the Jetson TX2 (which sends signals to the base station via the 900MHz and 2.4GHz routers). We use I2C to send data from the custom current sensor boards to the control boards.</p>
                     </div>
                 </div>
                 <div class="row">
@@ -74,9 +78,9 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4 ">
-                        <h4>—Control Boards</h4>
+                        <h4 class="pt-serif">—Control Boards</h4>
                     </div>
-                    <div class="col-md mb-5">
+                    <div class="col-md mb-3">
                         <p class="mb-0">We design, bring-up, and test our own custom control boards for the rover. Personally, I designed the schematic and layout for the 2018 end effector board, the schematic for the 2019 safety board, and the schematic and layout for the 2019 arm board.</p>
                         <a class="link text-grey" href="">See full schematics and PCB layouts →</a>
                         <p class="mt-3">When designing the boards, I aimed to minimize noise by keeping PWM signals far from communication signals, and I used a copper pour with vias around the voltage regulator for thermal relief.</p>
@@ -85,7 +89,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>End Effector Board</h5>
+                        <h5 class="pt-serif">End Effector Board</h5>
                     </div>
                     <div class="col-md">
                         <p><b>Functions</b>: Control 2 wrist motors, read limit switch and encoder signals from wrist, use CAN to communicate with Jetson</p>
@@ -107,7 +111,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>Safety board</h5>
+                        <h5 class="pt-serif">Safety board</h5>
                     </div>
                     <div class="col-md">
                         <p><b>Functions</b>: Monitor temperature in electrical box using NTC thermistor, monitor battery level, read current sensor values over I2C, communicate with Jetson over CAN  </p>
@@ -122,7 +126,7 @@
 
                 <div class="row">
                     <div class="col-md-4 ">
-                        <h5>Arm board</h5>
+                        <h5 class="pt-serif">Arm board</h5>
                     </div>
                     <div class="col-md">
                         <p><b>Functions</b>: Control 3 arm motors, read arm encoders and limit switch signals, use CAN to communicate with the Jetson </p>
@@ -150,10 +154,14 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Power Distribution</h4>
+                        <h4 class="pt-serif">—Power Distribution</h4>
                     </div>
                     <div class="col-md">
-
+                        <p>In the 2018 design season, we used a 24V battery to power the drive motors, a 12V battery for the PC, and a 12V battery for the arm motors and custom boards. This solution was heavy, and put us over our weight limitations at competition last year. </p>
+                        <p>This year, we opted for a solution with one 24V battery and a 24V/12V step-down converter to power the Jetson and the arm motors. We also have a 12V/5V converter to step down the voltage for the custom control boards.</p>
+                        <object class="w-100" data="../img/uwrobotics/power_distr.pdf" type="application/pdf" height="400px;"> 
+                            <p>It appears you don't have a PDF plugin for this browser. You can <a class="link" href="../img/uwrobotics/power_distr.pdf">click here to download the PDF file.</a></p>  
+                        </object>
                     </div>
                 </div>
             </div>
@@ -163,15 +171,15 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Science</h4>
+                        <h4 class="pt-serif">—Science</h4>
                     </div>
                     <div class="col-md">
                         <p>The main purpose of the science task is to determine if life is extinct or extant by analyzing rock and soil samples, and the temperature and moisture levels of the soil. As part of competition rules for this year, all science tasks need to be conducted on the rover.</p>
                         <p> I oversaw the selection of sensors for the rover: </p>
                         <ul>
-                            <li>Moisture Sensor: Read the moisture levels in the soil in the hole dug by the auger</li>
-                            <li>Temperature Sensor: Read the temperature of the soil in the hole dug by the auger </li>
-                            <li>RGB Sensor: Determine levels of nitrates and phosphates based on the shade of the colour </li>
+                            <li><b>Moisture Sensor</b>: Read the moisture levels in the soil in the hole dug by the auger</li>
+                            <li><b>Temperature Sensor</b>: Read the temperature of the soil in the hole dug by the auger </li>
+                            <li><b>RGB Sensor</b>: Determine levels of nitrates and phosphates based on the shade of the colour </li>
                         </ul>
                     </div>
                 </div>
@@ -182,18 +190,49 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Wireless Communications</h4>
+                        <h4 class="pt-serif">—Wireless Comms</h4>
                     </div>
                     <div class="col-md">
-
+                        <p>A member of the team lead the research and selection of the wireless communications. We use the 900MHz band for controls and data (to/from the Jetson to control the rover) and the 2.4GHz band for the video feed, mainly for the science task.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="pt-serif">900 MHz</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>On the base station side, we have a <b>Ubiquiti Rocket M900</b> for the router, and an omnidirectional antenna, the <b>HGV-906U</b>.</p>
+                        <p>On the rover side, we have a <b>Ubiquiti Rocket M900</b> for the router, and an omnidirectional antenna, a <b>Bluebeam Ultra MadMushroom</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="pt-serif">2.4GHz</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>On the base station side, we have a <b>2.4GHz directional antenna</b> and a <b>2.4GHz commercial router/modem</b>.</p>
+                        <p>On the rover side, we have a <b>2.4GHz omnidirectional rubber duck antenna</b> and a <b>2.4GHz commercial router/modem</b>.</p>
                     </div>
                 </div>
             </div>
+        </div>
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—URC 2019</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>We will be competing at the end of May/beginning of June alongside 35 other teams :) </p>
+                    </div>
+                </div>
+            </div>
+            
 
             <div class="container pb-3 d-none d-lg-block">
                 <div class="row d-flex align-items-center col-md-9 mx-auto">
                     <div class="col-md-auto">
-                        <a class=" text-grey link" href="index.html">home</a>
+                        <a class=" text-grey link" href="../index.html">home</a>
                     </div>
                     <div class="col-md-auto">
                         <a class=" text-black link" href="uwrobotics.html">robotics</a>

@@ -10,21 +10,25 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
         <link rel="stylesheet" href="../style.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
-    <body class="roboto">
+    <body class="open-sans">
         <div class="pb-5 d-none d-md-block"></div>
-        <a class="text-grey pl-5 link zindex-sticky" href="index.html">back</a>
+        <a class="d-none d-md-block text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
+        <a class="d-block d-sm-block d-md-none text-grey pl-1 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
         <!-- Header -->
         <div class="mt-5 pt-5"></div>
         <div class="container">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-5 d-flex mx-2">
-                    <h3>
+                    <h3 class="pt-serif">
                         —Robotics Workshops
                     </h3>
                 </div>
@@ -50,7 +54,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Goal</h4>
+                        <h4 class="pt-serif">—Goal</h4>
                     </div>
                     <div class="col-md">
                         <p>The main purpose of the workshops was to introduce first years to the robotics team and give them some tools that they could use to get started with electronics. Around 40 students attended the three workshops, and about 3/4 of them joined the team.</p>
@@ -63,7 +67,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Workshop 1</h4>
+                        <h4 class="pt-serif">—Workshop 1</h4>
                     </div>
                     <div class="col-md">
                         <p>The first workshop was: <b>Introduction to Mars Rover Electrical Subteam</b>. I took the first years through the University Rover Challenge tasks and described our design goals for the season, as well as general system architecture for the rover.  </p>
@@ -79,7 +83,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Workshop 2</h4>
+                        <h4 class="pt-serif">—Workshop 2</h4>
                     </div>
                     <div class="col-md">
                         <p>The second workshop was: <b>Introduction to Simulation and Schematic Tools</b>. I chose a basic circuit, an AC/DC converter, and showed the attendees how to simulate the circuit in LTSpice, then how to create the schematic using DipTrace.</p>
@@ -87,7 +91,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>LTSpice</h5>
+                        <h5 class="pt-serif">LTSpice</h5>
                     </div>
                     <div class="col-md">
                         <p>I taught the attendees how to place parts, connect them with wires, run a transient simulation, and probe voltages and currents in the circuit.</p>
@@ -99,7 +103,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>DipTrace Schematic</h5>
+                        <h5 class="pt-serif">DipTrace Schematic</h5>
                     </div>
                     <div class="col-md">
                         <p>As an introduction to schematic capture, I showed the attendees how to use components from a component library and place components and connectors to make a basic schematic.</p>
@@ -119,7 +123,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Workshop 3</h4>
+                        <h4 class="pt-serif">—Workshop 3</h4>
                     </div>
                     <div class="col-md">
                         <p>The third workshop covered <b>PCB Design & Version Control</b>.</p>
@@ -127,7 +131,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>PCB Design</h5>
+                        <h5 class="pt-serif">PCB Design</h5>
                     </div>
                     <div class="col-md">
                         <p>In this workshop, we took the schematic that we made the previous week and converted it to PCB. Then, I showed the attendees how to arrange the components in an optimal way, how to route traces, and how to make copper pours. </p>
@@ -140,7 +144,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>Component Libraries</h5>
+                        <h5 class="pt-serif"> Component Libraries</h5>
                     </div>
                     <div class="col-md">
                         <p>Since we use a shared component library to create our custom boards, I showed the attendees how to create a footprint and link it to a schematic component, then update the schematic and footprint libraries. </p>
@@ -153,7 +157,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>Version Control</h5>
+                        <h5 class="pt-serif">Version Control</h5>
                     </div>
                     <div class="col-md">
                         <p>Last, we guided the attendees through how to get started with Github and Github Desktop, which we use for version control of all the libraries and projects. Github has integration with Altium, making it a straightforward method of version control.</p>
@@ -169,7 +173,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Takeaways</h4>
+                        <h4 class="pt-serif">—Takeaways</h4>
                     </div>
                     <div class="col-md">
                         <p>Running these workshops was a great tool for recruitment, and we will continue planning and hosting workshops in future years. From a feedback form, students said that they enjoyed the schematic and PCB design workshops more than the first workshop, so for next year I plan to dedicate the last workshop to University Rover Challenge and introduce the potential members to the UW Robotics electrical subteam.</p>
@@ -180,7 +184,7 @@
             <div class="container pb-3 d-none d-lg-block">
                 <div class="row d-flex align-items-center col-md-9 mx-auto">
                     <div class="col-md-auto">
-                        <a class=" text-grey link" href="index.html">home</a>
+                        <a class=" text-grey link" href="../index.html">home</a>
                     </div>
                     <div class="col-md-auto">
                         <a class=" text-grey link" href="uwrobotics.html">robotics</a>

@@ -2,6 +2,14 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.open-sans {
+    font-family: 'open sans', sans-serif;
+}
+
+.pt-serif {
+    font-family: 'pt serif', serif;
+}
+
 .img {
     background-size: cover;
     background-repeat: no-repeat;

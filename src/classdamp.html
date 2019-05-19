@@ -10,21 +10,24 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
         <link rel="stylesheet" href="../style.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
-    <body class="roboto">
+    <body class="open-sans">
         <div class="pb-5 d-none d-md-block"></div>
-        <a class="text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="index.html">back</a>
-        <!-- Header -->
+        <a class="d-none d-md-block text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
+        <a class="d-block d-sm-block d-md-none text-grey pl-1 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
         <div class="mt-5 pt-5"></div>
         <div class="container">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-4 d-flex mx-2">
-                    <h3>
+                    <h3 class="pt-serif">
                         —Class D Amplifier
                     </h3>
                 </div>
@@ -50,7 +53,7 @@
             <div class="container py-5">
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <h4>—Starting Point</h4>
+                        <h4 class="pt-serif">—Starting Point</h4>
                     </div>
                     <div class="col-md">
                         <p>As a music lover, I thought that it would be a fun project because it combines analog and digital circuitry to create a relatively efficient speaker. </p>
@@ -61,7 +64,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <h5>Some notes</h5>
+                        <h5 class="pt-serif">Some notes</h5>
                     </div>
                     <div class="col-md">
                         <p><b>Aux in</b>: The signal (when measured) was around 500mV.</p>
@@ -79,7 +82,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Dead-time Generator</h4>
+                        <h4 class="pt-serif">—Dead-time Generator</h4>
                     </div>
                     <div class="col-md">
                         <p>In the half-bridge configuration, if both MOSFETS are on at the same time, a short will be created from V+ to V- (aka shoot-through), which draws a significant amount of current and heats up the MOSFETs. </p>
@@ -101,7 +104,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Gate Drivers</h4>
+                        <h4 class="pt-serif">—Gate Drivers</h4>
                     </div>
                     <div class="col-md">
                         <p>To drive the gates of the PMOS (high-side driver) and the NMOS (low-side driver), I level-shifted the outputs of the AND gate and the OR gate to properly bias the gate of each MOSFET. </p>
@@ -121,7 +124,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Low Pass Filter</h4>
+                        <h4 class="pt-serif">—Low Pass Filter</h4>
                     </div>
                     <div class="col-md">
                         <p>Before driving the speaker, I put the digital encoding of the audio signal through a low pass filter to filter out the high-frequency components and get the analog signal back. I used a cut-off frequency of 35kHz and a passive LC filter.</p>
@@ -136,7 +139,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Simulation</h4>
+                        <h4 class="pt-serif">—Simulation</h4>
                     </div>
                     <div class="col-md">
                         <p>Before prototyping the circuit, I downloaded LTSpice models and simulated the second-half of the circuit (from the comparator to the output) to ensure proper functionality.</p>
@@ -150,7 +153,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Schematic</h4>
+                        <h4 class="pt-serif">—Schematic</h4>
                     </div>
                     <div class="col-md">
                         <img src="../img/classdamp/amp_schematic.png" class='img-fluid'/>
@@ -165,7 +168,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Prototype</h4>
+                        <h4 class="pt-serif">—Prototype</h4>
                     </div>
                     <div class="col-md">
                         <p>Before designing the PCB layout, I breadboarded the circuit to tune the deadtime generator circuit and verify circuit functionality. </p>
@@ -208,10 +211,10 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Board Layout</h4>
+                        <h4 class="pt-serif">—Board Layout</h4>
                     </div>
                     <div class="col-md">
-                    
+                        <p><i>Will upload soon :)</i></p>
                     </div>
                 </div>
             </div>
@@ -221,7 +224,7 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>—Takeaways</h4>
+                        <h4 class="pt-serif">—Takeaways</h4>
                     </div>
                     <div class="col-md">
                         <p>This project gave me the opportunity to explore analog circuit design and audio amplification and challenged me to come up with new solutions to problems that arose in the design process. The fixed dead-time insertion could also be used in a synchronous buck converter circuit, which could be a fun future exploration.</p>
@@ -231,7 +234,7 @@
             <div class="container pb-3 d-none d-lg-block">
                 <div class="row d-flex align-items-center col-md-9 mx-auto">
                     <div class="col-md-auto">
-                        <a class=" text-grey link" href="index.html">home</a>
+                        <a class=" text-grey link" href="../index.html">home</a>
                     </div>
                     <div class="col-md-auto">
                         <a class=" text-grey link" href="uwrobotics.html">robotics</a>
