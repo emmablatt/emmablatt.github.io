@@ -211,10 +211,38 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
+                        <h4 class="pt-serif">—Modifications</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>After verifying that the board functioned as expected, I started to design the board layout. I decided to power it with a single supply rail, so I had to make some modifications to the circuit. I added in a delay to the turn on time of the NMOS driver so the charge pump capacitor at the gate of the PMOS had time to charge. I also re-biased the gate drivers so the PMOS and NMOS can turn on. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
                         <h4 class="pt-serif">—Board Layout</h4>
                     </div>
                     <div class="col-md">
-                        <p><i>Will upload soon :)</i></p>
+                        <p>I designed a 4-layer board that is powered using a USB-C charger. I researched splitting (or partitionign) the analog ground and switching ground, but decided to use one ground reference and keep it clean by having the layer very close (3mil) to the power plane, and using bypass capacitors and bulk capacitors to filter noise and keep the power signals steady (respectively). </p>
+                        <p>I opted for an LDO to get the +5V0 reference voltage for the op-amps and logic gates. I calculated the current draw on the +5V0 plane at 200kHz (the switching frequency), then used the LDO's datasheet to calculate power dissipation. Since the +5V0 line only draws ~5mA, I opted for the cheaper solution. I via-stitched around the regulated voltage to dissipate heat</p>
+                        <p>I also used via stitching to connect the ground planes together (the bottom layer, the second layer, and part of the top layer).</p>
+                        <div class="row">
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/board_layout.png" class="img-fluid" style="height: 242px;" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Top Layer</figcaption>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/layout_power.png" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Power Plane</figcaption>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
