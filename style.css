@@ -66,7 +66,14 @@
 
 .link:hover {
     text-decoration: none;
-    color: black;
+    background: linear-gradient(to right, #BAAFFF,#FF93E7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     transform: translateX(5px);
     transition: 0.5s ease;
+}
+
+.grad {
+    background-image: linear-gradient(to right, #BAAFFF,#FF93E7);
+
 }
