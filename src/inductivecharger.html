@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="shortcut icon" href="../favicon.ico">
+        <title>Emma Blatt</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+        <link rel="stylesheet" href="../style.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99791126-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-99791126-1');
+        </script>
+    </head>
+
+    <body class="open-sans">
+        <div class="pb-5 d-none d-md-block"></div>
+        <a class="d-none d-md-block text-grey pl-4 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
+        <a class="d-block d-sm-block d-md-none text-grey pl-1 link zindex-sticky" style="position: fixed; z-index=1;" href="../index.html">back</a>
+        <div class="mt-5 pt-5"></div>
+        <div class="container">
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-4 d-flex mx-2">
+                    <h3 class="pt-serif">
+                        —Inductive Charger
+                    </h3>
+                </div>
+                <div class="col-md-7 d-flex flex-column mx-2">
+                    <p class="text-dark-grey mb-2">
+                        My friend and I designed and built an inductive charging system for a phone that does not support wireless charging.
+                    </p>
+                    <p class="mb-0"><b>Tools</b>: Altium Designer, LTSpice, Oscilloscope </p>
+                    <p><b>Keywords</b>: flyback converter, LDO design, component sourcing, PCB design</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="mt-5 mb-2 col-md-9 container embed-responsive embed-responsive-21by9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_iLCDqRF-YM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
+            <div class="d-flex justify-content-center">
+                <figcaption class=" mb-5 figure-caption">Class-D Amplifier Prototype</figcaption>
+            </div>
+        </div>
+
+        <div style="background-color: #f9f9f9;">
+            <div class="container py-5">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Inspiration</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>I have a phone from 2015, and as a result I feel left out from the simplicity and ease of wireless charging. I thought that I could design a system to pretend like my phone has wireless charging. </p>
+                        <p>We did our first iteration without communication between the transmitter and receiver, to make a minimum viable prototype. Over USB, this allows for charging up to 150mA.</p>
+                        <p class="mt-3">Block diagram for inductive charger:</p>
+                        <img src="../img/inductivecharger/blockdiagram.png" class="img-fluid" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="pt-serif">My work</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>The work was split between me and my friend. I designed the AC/DC converter on the transmitter side, designed a discrete LDO on the receive side, determined power requirements and transmit frequency, and sourced coils.</p>
+                        <p><b>TX AC/DC</b>: CCM flyback converter and rectification.</p>
+                        <p><b>LDO</b>: discrete LDO with op-amp and zener regulated voltage reference.</p>
+                        <p><b>Coils</b>: Sourced coils that are rated for the power/current requirements and operate efficiently at the desired power output. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—TX AC/DC Converter</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>I designed a continuous-conduction-mode flyback converter to isolate mains from the output circuit. </p>
+                        <p>To avoid this, I designed a circuit to ensure that the pmos does not turn on when the nmos is on. The RC network ensures that the input taken above the capacitor will go HIGH after the input taken above the resistor. </p>
+                        <div class="d-flex justify-content-center" style="height: 400px;">
+                            <img src="../img/classdamp/deadtime.png" class="img-fluid h-100" />
+                        </div>
+                        <p class="mt-3">The time constant for this RC network is (1K)(500pF) = 0.5us, which accounts for the propagation delays and rise times for the selected MOSFETs, and is less than the maximum frequency of the square wave (which is 5us).</p>
+                        <img src="../img/classdamp/deadtime_sim.png" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-5 figure-caption">Green trace = OR gate output, red trace = AND gate output </figcaption>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: #f9f9f9;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Gate Drivers</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>To drive the gates of the PMOS (high-side driver) and the NMOS (low-side driver), I level-shifted the outputs of the AND gate and the OR gate to properly bias the gate of each MOSFET. </p>
+                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                            <img src="../img/classdamp/level_shift.png" class="img-fluid h-100"  />
+                        </div>
+                        <img src="../img/classdamp/level_shift_sim.png" class="img-fluid" />
+                        <div class="d-flex justify-content-center">
+                            <figcaption class=" mb-5 figure-caption">Green trace = NMOS driver, red trace = PMOS driver</figcaption>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: white">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Low Pass Filter</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>Before driving the speaker, I put the digital encoding of the audio signal through a low pass filter to filter out the high-frequency components and get the analog signal back. I used a cut-off frequency of 35kHz and a passive LC filter.</p>
+                        <p>Since the output of the low-pass filter is the speaker, I took into account the 8 ohm resistance when calculating values for the inductor and capacitor. </p>
+                        <img src="../img/classdamp/ac_sweep_filter.png" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: #f9f9f9">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Simulation</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>Before prototyping the circuit, I downloaded LTSpice models and simulated the second-half of the circuit (from the comparator to the output) to ensure proper functionality.</p>
+                        <img src="../img/classdamp/amp_sim.png" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Schematic</h4>
+                    </div>
+                    <div class="col-md">
+                        <img src="../img/classdamp/amp_schematic.png" class='img-fluid'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+
+ 
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Prototype</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>Before designing the PCB layout, I breadboarded the circuit to tune the deadtime generator circuit and verify circuit functionality. </p>
+                        <img src="../img/classdamp/prototype_setup.jpeg" class="img-fluid mb-3" />
+                        <div class="row">
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/comparator_prototype.JPG" class="img-fluid" style="height: 251px;" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Green = audio input, Yellow = 200kHz triangle wave</figcaption>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/deadtime_prototype.JPG" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Fixed deadtime insertion</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/level_shift_prototype.JPG" class="img-fluid" style="height: 256px;" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Level shifted NMOS and PMOS gate drivers</figcaption>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/half_bridge_output.JPG" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Amplified digital signal</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>  
+            </div>
+        </div>
+               
+        <div style="background-color: #f9f9f9;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Modifications</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>After verifying that the board functioned as expected, I started to design the board layout. I decided to power it with a single supply rail, so I had to make some modifications to the circuit. I added in a delay to the turn on time of the NMOS driver so the charge pump capacitor at the gate of the PMOS had time to charge. I also re-biased the gate drivers so the PMOS and NMOS can turn on. </p>
+                        <img src="../img/classdamp/amp_schematic_final.png" class="img-fluid" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Board Layout</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>I designed a 4-layer board that is powered using a USB-C charger. I researched splitting (or partitionign) the analog ground and switching ground, but decided to use one ground reference and keep it clean by having the layer very close (3mil) to the power plane, and using bypass capacitors and bulk capacitors to filter noise and keep the power signals steady (respectively). </p>
+                        <p>I opted for an LDO to get the +5V0 reference voltage for the op-amps and logic gates. I calculated the current draw on the +5V0 plane at 200kHz (the switching frequency), then used the LDO's datasheet to calculate power dissipation. Since the +5V0 line only draws ~5mA, I opted for the cheaper solution. I via-stitched around the regulated voltage to dissipate heat</p>
+                        <p>I also used via stitching to connect the ground planes together (the bottom layer, the second layer, and part of the top layer).</p>
+                        <div class="row">
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/board_layout.png" class="img-fluid" style="height: 242px;" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Top Layer</figcaption>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column col-md">
+                                <img src="../img/classdamp/layout_power.png" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-3 figure-caption">Power Plane</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+        <div style="background-color: white;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="pt-serif">—Takeaways</h4>
+                    </div>
+                    <div class="col-md">
+                        <p>This project gave me the opportunity to explore analog circuit design and audio amplification and challenged me to come up with new solutions to problems that arose in the design process. The fixed dead-time insertion could also be used in a synchronous buck converter circuit, which could be a fun future exploration.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container pb-3 d-none d-lg-block">
+                <div class="row d-flex align-items-center col-md-9 mx-auto">
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="../index.html">home</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="uwrobotics.html">robotics</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-black link" href="classdamp.html">class-d amp</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="pressuresensor.html">pressure-sensor LED array</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="workshops.html">workshops</a>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class=" text-grey link" href="safe.html">secret knock safe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </body>
+</html>
