@@ -93,17 +93,22 @@
                     </div>
                     <div class="col-md">
                         <p>I designed a continuous-conduction-mode flyback converter to isolate mains from the output circuit. </p>
-                        <p>To avoid this, I designed a circuit to ensure that the pmos does not turn on when the nmos is on. The RC network ensures that the input taken above the capacitor will go HIGH after the input taken above the resistor. </p>
-                        <div class="d-flex justify-content-center" style="height: 400px;">
-                            <img src="../img/classdamp/deadtime.png" class="img-fluid h-100" />
-                        </div>
-                        <p class="mt-3">The time constant for this RC network is (1K)(500pF) = 0.5us, which accounts for the propagation delays and rise times for the selected MOSFETs, and is less than the maximum frequency of the square wave (which is 5us).</p>
-                        <img src="../img/classdamp/deadtime_sim.png" class="img-fluid" />
-                        <div class="d-flex justify-content-center">
-                            <figcaption class=" mb-5 figure-caption">Green trace = OR gate output, red trace = AND gate output </figcaption>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col-md-4">
+                        <h5 class="pt-serif">Operation</h5>
+                    </div>
+                    <div class="col-md">
+                        <p>In this converter, energy is stored in the magnetic field of the transformer during the first half of the switching cycle, then released to the load via the secondary winding in the second half of the cycle.</p>
+                        <p> I designed a CCM flyback for the first prototype, but the transformers required were expensive and physically large.</p>
+                        <p> The SPICE simulation for the CCM flyback is below:</p>
+                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                            <img src="../img/inductivecharger/txacdc.png" class="img-fluid h-100"  />
                         </div>
                     </div>
                 </div>
+              
             </div>
         </div>
 
@@ -111,18 +116,59 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4 class="pt-serif">—Gate Drivers</h4>
+                        <h4 class="pt-serif">—LDO</h4>
                     </div>
                     <div class="col-md">
-                        <p>To drive the gates of the PMOS (high-side driver) and the NMOS (low-side driver), I level-shifted the outputs of the AND gate and the OR gate to properly bias the gate of each MOSFET. </p>
-                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/classdamp/level_shift.png" class="img-fluid h-100"  />
-                        </div>
-                        <img src="../img/classdamp/level_shift_sim.png" class="img-fluid" />
-                        <div class="d-flex justify-content-center">
-                            <figcaption class=" mb-5 figure-caption">Green trace = NMOS driver, red trace = PMOS driver</figcaption>
+                        <p>For fun, I wanted to design a discrete LDO using an op-amp to better understand the mechanism and explore different design parameters. For the final design, I wanted Vout to be ~5.2V so that when it reaches the phone it will be around 5V (tolerance for DCR drop).</p>
+
+                    </div>
+                    <div class="row py-3">
+                        <div class="col-md-4">
+                            <h5 class="pt-serif">First Iteration</h5>
+                         </div>
+                         
+                        <div class="col-md">
+                            <p>First I chose the simplest possible design. I used a voltage source for the reference voltage, an ideal op-amp, a separate source for Vin, and set Iload = 150mA. Since the voltage reference has poor load driving capabilities, it is only used as a reference for the op-amp. R1 controls the current through the zener diode. The PMOS is the pass element in the feedback system, so when a difference between the inverting and non-inverting terminal is detected, it will turn on and allow current to flow from input to output. </p>
+                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                                <img src="../img/inductivecharger/ldo1.png" class="img-fluid h-100"  />
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <figcaption class=" mb-5 figure-caption">First iteration of LDO design - Vout = Vref x (1+R1/R2)</figcaption>
+                            </div>
+                            <p>To regulate output voltage, the feedback loop controls RDS of the FET. As Vin approaches Vout, the error amplifier (in this case, an op-amp) will drive VGS more negative to lower RDS and maintain regulation.</p>
                         </div>
                     </div>
+                    <div class="row py-3">
+                        <div class="col-md-4">
+                            <h5 class="pt-serif">Voltage reference Option 1</h5>
+                         </div>
+                         
+                        <div class="col-md">
+                            <p>The reference voltage has to be stable across a range of input voltages, namely 6V to 9V. This means that the reference voltage cannot vary with load current or input voltage. </p>
+                            <p>I first tried a zener diode reference. The series resistor controls the current through the zener diode, which changes the voltage across it. Because of this, it is not a very accurate reference.</p>
+                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                                <img src="../img/inductivecharger/zener_ref.png" class="img-fluid h-100"  />
+                            </div>
+                            <p>Since the input voltage may vary and the load current may vary, this is not a good solution for a stable reference voltage.</p>
+                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                                <img src="../img/inductivecharger/sweep_zener_current.png" class="img-fluid h-100"  />
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <figcaption class=" mb-5 figure-caption">Sweep Vin from 6V to 9V, zener diode current increases from 20mA to 65mA</figcaption>
+                            </div>
+                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                                <img src="../img/inductivecharger/sweep_zener_voltage.png" class="img-fluid h-100"  />
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <figcaption class=" mb-5 figure-caption">Sweep Vin from 6V to 9V, zener diode voltage drop decreases from 4.767V to 4.7V</figcaption>
+                            </div>
+                            <p>When the input voltage is kept constant (i.e. 6V) and load current is swept from 100mA to 500mA, the output voltage is relatively stable.</p>
+                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                                <img src="../img/inductivecharger/sweep_load_current.png" class="img-fluid h-100"  />
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -136,7 +182,6 @@
                     <div class="col-md">
                         <p>Before driving the speaker, I put the digital encoding of the audio signal through a low pass filter to filter out the high-frequency components and get the analog signal back. I used a cut-off frequency of 35kHz and a passive LC filter.</p>
                         <p>Since the output of the low-pass filter is the speaker, I took into account the 8 ohm resistance when calculating values for the inductor and capacitor. </p>
-                        <img src="../img/classdamp/ac_sweep_filter.png" class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -261,10 +306,10 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4 class="pt-serif">—Takeaways</h4>
+                        <h4 class="pt-serif">—Improvements</h4>
                     </div>
                     <div class="col-md">
-                        <p>This project gave me the opportunity to explore analog circuit design and audio amplification and challenged me to come up with new solutions to problems that arose in the design process. The fixed dead-time insertion could also be used in a synchronous buck converter circuit, which could be a fun future exploration.</p>
+                        <p> I designed a CCM flyback for the first prototype, but the transformers required were expensive and physically large.</p>
                     </div>
                 </div>
             </div>
