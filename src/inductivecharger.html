@@ -42,19 +42,17 @@
                 </div>
                 <div class="col-md-7 d-flex flex-column mx-2">
                     <p class="text-dark-grey mb-2">
-                        I designed and built an inductive charging system for a phone that does not support wireless charging.
+                        I designed and built an inductive charging system for a phone that does not natively support wireless charging.
                     </p>
                     <p class="mb-0"><b>Tools</b>: Altium Designer, LTSpice, Oscilloscope </p>
-                    <p><b>Keywords</b>: flyback converter, LDO design, component sourcing, PCB design</p>
+                    <p><b>Keywords</b>: flyback converter, wireless transmitter/receiver, LC oscillator</p>
                 </div>
             </div>
         </div>
 
         <div class="container">
             <div class="mt-5 mb-2 col-md-9 container embed-responsive embed-responsive-21by9">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_iLCDqRF-YM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
             <div class="d-flex justify-content-center">
-                <figcaption class=" mb-5 figure-caption">Class-D Amplifier Prototype</figcaption>
             </div>
         </div>
 
@@ -65,13 +63,17 @@
                         <h4 class="pt-serif">—Inspiration</h4>
                     </div>
                     <div class="col-md">
-                        <p>I have a phone from 2015, and as a result I feel left out from the simplicity and ease of wireless charging. I thought that I could design a system to pretend like my phone has wireless charging. </p>
-                        <p>I did the first iteration without communication between the transmitter and receiver, to make a minimum viable prototype. Over USB, this allows for charging up to 150mA.</p>
-                        <p class="mt-3">Block diagram for inductive charger:</p>
-                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/inductivecharger/blockdiagram.png" class="img-fluid h-100"  />
+                        <p>I have an old iPhone SE from 2015 and I feel left out from the simplicity and ease of wireless charging. I wanted to design a system so I could pretend like my phone has wireless charging. </p>
+                        <p>To do this, I can mount the receiver to the back of my phone and connect the output to a wired charging cable. My design is spec'ed to allow 500mA charging at 5V.</p>
+                        <p class="mt-3">Power flow diagram for inductive charger:</p>
+                        <div class="col-md-4 d-none d-md-block"></div>
+                        <div class="mx-auto col-md-8">
+                            <img src="../img/inductivecharger/powerflow.png" class="img-fluid" />
+                            <div class="d-flex justify-content-center">
+                                <figcaption class=" mb-5 figure-caption">Based on simulation and calculation</figcaption>
+                            </div>
                         </div>
-                        <p>I designed each block independently, then started at the load to figure out power requirements and tune/bias circuits. For ease of explanation, I'll explain it from wall to phone rather than in the order it was designed.</p>
+                        <p>I designed each block independently, and worked backwards from load to specify power requirements and tune/bias circuits.</p>
                     </div>
                 </div>
             </div>
@@ -81,25 +83,20 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4 class="pt-serif">—TX AC/DC Converter</h4>
+                        <h4 class="pt-serif">—Wireless Link</h4>
                     </div>
                     <div class="col-md">
-                        <p>Initially, I designed a continuous-conduction-mode flyback converter to isolate mains from the output circuit. </p>
+                        <p>Starting with the heart of the circuit: the wireless link. Since the receiver (connected to the phone) will only be used with one transmitter, the simplest way to transmit power is at a set frequency with magnetic resonant charging. </p>
+                        <p>Since it's at a fixed frequency and fixed power output, I decided to design the circuits without use of transmitter or receiver ICs (definitely NOT Qi-compatible). </p>
                     </div>
                 </div>
                 <div class="row py-3">
                     <div class="col-md-4">
-                        <h5 class="pt-serif">CCM Design</h5>
+                        <h5 class="pt-serif">Principle of Operation</h5>
                     </div>
                     <div class="col-md">
-                        <p>In this converter, energy is stored in the magnetic field of the transformer during the first half of the switching cycle, then released to the load via the secondary winding in the second half of the cycle.</p>
-                        <p> The SPICE simulation for the CCM flyback is below:</p>
-                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/inductivecharger/txacdc.png" class="img-fluid h-100"  />
-                        </div>
-                        <p>Ripple voltage: Vpp = I/2fC = 6.3uA/2*2*pi*200k</p>
-                        <p>The issue with a CCM flyback converter is that the transformers are expensive ($25 to $30) and the component is physically large. Therefore, I took this and designed a discontinuous-conduction-mode converter.</p>
-                    </div>
+                        <p>Wireless charging is inherently less efficient than wired charging; it generally is in the 50%-60% range rather than 98% range. As a result, it is desirable to couple the coils in such a way that the maximum amount of energy can be transferred.</p>
+                        <p>Resonant magnetic coupling relies on an oscillating magnetic field transferring energy between two coils operating at the same resonant frequency. The coils need to have high Q-factors to transfer energy efficiently, and the resonant frequency is set with a parallel capacitor. Additionally, the distance between the coils should be minimized to maximize the coupling coefficient, k.</p>
                 </div>
                 <div class="row py-3">
                     <div class="col-md-4">
