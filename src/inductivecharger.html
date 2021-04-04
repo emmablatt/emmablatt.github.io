@@ -95,7 +95,7 @@
                         <h5 class="pt-serif">Principle of Operation</h5>
                     </div>
                     <div class="col-md">
-                        <p>Wireless charging is inherently less efficient (50% to 70%) than wired charging (80% to 98%). As a result, it is desirable to couple the coils in such a way that the maximum amount of energy can be transferred. </p>
+                        <p>Wireless charging is inherently less efficient (50% to 70%) than wired charging (80% to 98%). As a result, it is desirable to couple the coils in such a way that the maximum amount of energy can be transferred. Magnetic resonant coupling relies on an oscillating magnetic field to couple magnetic energy between two coils operating at the same resonant freqency. This is less efficient if the system needs to be compatible across a wide range of transmitters/receivers, but more efficient for a single TX/RX combination.</p>
                         <ul>Key parameters:
                             <li>Q-factor: Maximize TX Q-factor (wo*L/R) to minimize loss in transmission</li>
                             <li>Coil geometry: Maximum coupling coefficient (k) when TX and RX coils are the same size</li>
@@ -105,16 +105,21 @@
                 </div>
                 <div class="row py-3">
                     <div class="col-md-4">
-                        <h5 class="pt-serif">DCM Design</h5>
+                        <h5 class="pt-serif">Wurth Electronics WPT Design Tool </h5>
                     </div>
                     <div class="col-md">
-                        <p>In this converter, energy is stored in the magnetic field of the transformer during the first half of the switching cycle, then released to the load via the secondary winding in the second half of the cycle.</p>
-                        <p> The SPICE simulation for the CCM flyback is below:</p>
-                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/inductivecharger/txacdc.png" class="img-fluid h-100"  />
+                        <p>Keeping the key parameters in mind, I used the WE wireless power transfer design tool to choose a compatible combination of coils. </p>
+                    </div>
+                    <div class="col-md-4 d-none d-md-block"></div>
+                    <div class="col-md d-flex">
+                        <div class="row">
+                            <div class="col-md">
+                                <img src="../img/inductivecharger/we_graphs.png" class="img-fluid" />
+                            </div>
+                            <div class="col-md">
+                                <img src="../img/inductivecharger/we_resonance.png" class="img-fluid" />
+                            </div>
                         </div>
-                        <p>Ripple voltage: Vpp = I/2fC = 6.3uA/2*2*pi*200k</p>
-                        <p>The issue with a CCM flyback converter is that the transformers are expensive ($25 to $30) and the component is physically large. Therefore, I took this and designed a discontinuous-conduction-mode converter.</p>
                     </div>
                 </div>
               
