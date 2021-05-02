@@ -49,12 +49,13 @@
                 </div>
             </div>
         </div>
-
-        <div class="container">
+        <!-- <div class="container">
             <div class="mt-5 mb-2 col-md-9 container embed-responsive embed-responsive-21by9">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_iLCDqRF-YM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
             <div class="d-flex justify-content-center">
+                <figcaption class=" mb-5 figure-caption">Class-D Amplifier Prototype</figcaption>
             </div>
-        </div>
+        </div> -->
 
         <div style="background-color: #f9f9f9;">
             <div class="container py-5">
@@ -95,33 +96,41 @@
                         <h5 class="pt-serif">Principle of Operation</h5>
                     </div>
                     <div class="col-md">
-                        <p>Wireless charging is inherently less efficient (50% to 70%) than wired charging (80% to 98%). As a result, it is desirable to couple the coils in such a way that the maximum amount of energy can be transferred. Magnetic resonant coupling relies on an oscillating magnetic field to couple magnetic energy between two coils operating at the same resonant freqency. This is less efficient if the system needs to be compatible across a wide range of transmitters/receivers, but more efficient for a single TX/RX combination.</p>
+                        <p>Wireless charging is inherently less efficient (50% to 70%) than wired charging (80% to 98%). As a result, it is desirable to couple the coils in such a way that the maximum amount of energy can be transferred. Magnetic resonant coupling relies on an oscillating magnetic field to couple magnetic energy between two coils operating at the same resonant freqency. This is less efficient if the system needs to be compatible across a wide range of transmitters/receivers, but more efficient for a single TX/RX combination (and allows for efficient transmission without precise mechanical alignment).</p>
                         <ul>Key parameters:
                             <li>Q-factor: Maximize TX Q-factor (wo*L/R) to minimize loss in transmission</li>
                             <li>Coil geometry: Maximum coupling coefficient (k) when TX and RX coils are the same size</li>
                             <li>Turns ratio: Higher turns ratio to maximize magnetic energy can be coupled to the receiver</li>
                             <li>DC Resistance: Minimize DC resistance to reduce losses </li>
                         </ul>
+                    </div>
                 </div>
+                
                 <div class="row py-3">
                     <div class="col-md-4">
                         <h5 class="pt-serif">Wurth Electronics WPT Design Tool </h5>
                     </div>
+                
                     <div class="col-md">
                         <p>Keeping the key parameters in mind, I used the WE wireless power transfer design tool to choose a compatible combination of coils. </p>
-                    </div>
-                    <div class="col-md-4 d-none d-md-block"></div>
-                    <div class="col-md d-flex">
-                        <div class="row">
-                            <div class="col-md">
-                                <img src="../img/inductivecharger/we_graphs.png" class="img-fluid" />
-                            </div>
-                            <div class="col-md">
-                                <img src="../img/inductivecharger/we_resonance.png" class="img-fluid" />
+                        <div class="col-md-4 d-none d-md-block"></div>
+                        <div class="mx-auto col-md">
+                            <img src="../img/inductivecharger/we_graphs.png" class="img-fluid" />
+                            <div class="d-flex justify-content-center">
+                                <figcaption class=" mb-5 figure-caption">TX/RX Coil compatibility based on size, Q-factor, and coupling coefficient</figcaption>
                             </div>
                         </div>
+                        <p>I chose the following coils (n=1.77 and k=0.65):</p>
+                        <div class="col-md-4 d-none d-md-block"></div>
+                        <div class="mx-auto col-md">
+                            <img src="../img/inductivecharger/coil_comp.png" class="img-fluid" />
+                        </div>
+                        <p class="pt-3"> To acheive a resonant frequency of 100kHz, I set Cp = 0.47uF and Cs=0.1uF (detune secondary side below 100kHz to prevent overcoupling).</p>
+                        <div class="col-md-4 d-none d-md-block"></div>
+                        <div class="mx-auto col-md">
+                            <img src="../img/inductivecharger/coil_res.png" class="img-fluid" />
+                        </div>
                     </div>
-                </div>
               
             </div>
         </div>
@@ -133,30 +142,38 @@
                         <h4 class="pt-serif">—LC Oscillator</h4>
                     </div>
                     <div class="col-md">
-                        <p>The rectified voltage from the TX AC/DC converter goes to the LC oscillator to create a time-varying voltage that can be transmitted over the coils.</p>
-                        <p>I chose to design a Colpitts Oscillator, which consists of an oscillator and a positive feedback network, where one of the reactive elements feeds back to the input. </p>
+                        <p>After sourcing the coils, I designed the TX oscillator. The resonator needs to: be able to source enough current (around 2A) to drive the TX coil, is driven by a single DC supply, and needs to operate at the set resonant frequency (100kHz). </p>
+                        <p>In this case, the first time I designed a cross-coupled LC oscillator with its own LC tank (image below). This didn't work because the signal needed to be buffered to prevent loading of the LC tank. This limited the amplitude of the signal, as well as the current that could be sourced from the supply. </p>
+                        <div class="col-md-4 d-none d-md-block"></div>
+                        <div class="mx-auto col-md">
+                            <img src="../img/inductivecharger/osc_rev1.png" class="img-fluid" />
+                        </div>
+                        <p>To solve this issue, inspired by an wireless charging <a href="https://www.analog.com/media/en/technical-documentation/application-notes/AN138fc.pdf?doc=LTC4120-4120-4.2.pdf">application note by Analog Devices</a>, I designed a cross-coupled LC oscillator that used the TX coiil as the resonant inductor. </p>
+                        <div class="col-md-4 d-none d-md-block"></div>
+                        <div class="mx-auto col-md">
+                            <img src="../img/inductivecharger/osc_rev2.png" class="img-fluid" />
+                        </div>
+                    </div>
+                    <div class="row py-3">
+                        <div class="col-md-4">
+                            <h5 class="pt-serif">Principle of Operation</h5>
+                        </div>
+                        <div class="col-md">
+                            <p>This push-pull current-fed resonator drives the LC tank with two MOSFETs: Since the gate of each FET is tied to the drain of the other, when one FET turns on it will turn off the other fet. The zener diode at the gate limits the gate voltage and prevents damage to the FET, and the RLD snubber improves the turn off speed of the MOSFETs. </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
-
-
-
         <div style="background-color:  white;">
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4 class="pt-serif">—Coil Sourcing</h4>
+                        <h4 class="pt-serif">—RX Regulation</h4>
                     </div>
                     <div class="col-md">
-                        <p>I sourced a set of RX/TX coils that have a turns ratio of ~1:1.31. So Vs = 1.31Vp.</p>
-                        <p>I looked into doing resonant coupling, but research shows that inductive coupling is more efficient than resonant coupling because ______. </p>
-                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/inductivecharger/coils.png" class="img-fluid h-100"  />
-                        </div>
+                        Once the TX oscillator was designed, I had a better idea of the input power, voltage/current specifications, and efficiency of the system. At this point I designed the rectifier and regulation at the receiver. I used a full-bridge rectifier connected to a linear regulator, which goes to a USB connector. 
                     </div>
                 </div>
             </div>
@@ -166,222 +183,131 @@
             <div class="container py-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4 class="pt-serif">—RX AC/DC Converter</h4>
+                        <h4 class="pt-serif">—Input power regulation</h4>
                     </div>
                     <div class="col-md">
-                        <p>For the receiver side, I designed a simple full bridge rectifier circuit to create a relatively stable input to the LDO.</p>
-                        <p>I used schottky power diodes with a forward voltage drop of 220mV at 1A to lower power loss. </p>
+                        <p>In addition to the design of the wireless converter, I thought it would be fun to design the offline AC/DC converter to provide the best efficiency and customization for my system. Originally, I attempted to design a discrete DCM flyback regulator (block diagram below).</p>
+                        <div class="col-md-4 d-none d-md-block"></div>
                         <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/inductivecharger/rxacdc.png" class="img-fluid h-100"  />
+                            <img src="../img/inductivecharger/dcm_converter.png" class="img-fluid h-100"  />
                         </div>
+                        <p>The issue that I ran into was the auxiliary winding (which would provide power to the PWM controller to drive the FET) required output power to turn on, but the FET needs the input from the PWM to start driving the coil. As a result, I realized that it would require an IC and more complicated circuitry (including soft-start). So instead, I used the Texas Instruments Webench tool to design the converter.</p>
+                        <div class="col-md-4 d-none d-md-block"></div>
                         <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                            <img src="../img/inductivecharger/rxacdc_output.png" class="img-fluid h-100"  />
+                            <img src="../img/inductivecharger/flyback.png" class="img-fluid h-100"  />
                         </div>
-                        <p>The AC/DC creates an output of ~6.2V, which will be fed to the LDO. I tuned the output capacitor based on the following equation: Vpp = Iload/2*f*C</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div style="background-color: white;">
-            <div class="container py-5">
-                <div class="row">
+                        <p>One of the difficult parts of the design is sourcing the coil. Since it is intended to meet specific power requirements, TI recommends the use of a custom coil. So I sourced a coil from Wurth Electronics that met the frequency, inductance, and output power requirements of the converter. Since the coil is spec'ed for a fixed output voltage, I fed the output of the flyback converter to a DC/DC converter to get the correct voltage for my oscillator.</p>
+                        <p>This converter operates at a frequency of 100kHz with 80% efficiency, and the output voltage is 12V. This circuit feeds rectified AC power to the coil, which is switched at a fixed frequency by the MOSFET (driven by the UC3844).</p>
+                    </div> 
+                </div>                       
+                <div class="row py-3">
                     <div class="col-md-4">
-                        <h4 class="pt-serif">—LDO</h4>
+                        <h5 class="pt-serif">Optocoupler Feedback</h5>
                     </div>
                     <div class="col-md">
-                        <p>For fun, I wanted to design a discrete LDO using an op-amp to better understand the mechanism and explore different design parameters. For the final design, I wanted Vout to be ~5.2V so that when it reaches the phone it will be around 5V (tolerance for DCR drop).</p>
-
-                    </div>
-                    <div class="row py-3">
-                        <div class="col-md-4">
-                            <h5 class="pt-serif">First Iteration</h5>
-                         </div>
-                         
-                        <div class="col-md">
-                            <p>First I chose the simplest possible design. I used a voltage source for the reference voltage, an ideal op-amp, a separate source for Vin, and set Iload = 150mA. Since the voltage reference has poor load driving capabilities, it is only used as a reference for the op-amp. R1 controls the current through the zener diode. The PMOS is the pass element in the feedback system, so when a difference between the inverting and non-inverting terminal is detected, it will turn on and allow current to flow from input to output. </p>
-                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                                <img src="../img/inductivecharger/ldo1.png" class="img-fluid h-100"  />
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <figcaption class=" mb-5 figure-caption">First iteration of LDO design - Vout = Vref x (1+R1/R2)</figcaption>
-                            </div>
-                            <p>To regulate output voltage, the feedback loop controls RDS of the FET. As Vin approaches Vout, the error amplifier (in this case, an op-amp) will drive VGS more negative to lower RDS and maintain regulation.</p>
+                        <p>To keep the output isolated from mains, I used an optocoupler with a TL431 shunt regulator for feedback to the controller. When the voltage at the output increases, the reference voltage to the TL431 will also increase. This will cause the shunt regulator to source more current, thereby increasing the current through the photodiode. A higher current through the photodiode means that there will be a higher Ice on the output, and a lower voltage at the feedback pin. The controller can then decrease the switching frequency.</p>
+                        <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                            <img src="../img/inductivecharger/opto.png" class="img-fluid h-100"  />
                         </div>
                     </div>
-
-
-                    <div class="row py-3">
-                        <div class="col-md-4">
-                            <h5 class="pt-serif">Voltage reference</h5>
-                         </div>
-                         
-                        <div class="col-md">
-                            <p>The reference voltage has to be stable across a range of input voltages, namely 6V to 9V. This means that the reference voltage cannot vary with load current or input voltage. </p>
-                            <p>I used a zener diode to set the reference voltage.</p>
-                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                                <img src="../img/inductivecharger/zener_ref.png" class="img-fluid h-100"  />
-                            </div>
-                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                                <img src="../img/inductivecharger/sweep_zener_current.png" class="img-fluid h-100"  />
-                            </div>
-                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                                <img src="../img/inductivecharger/sweep_zener_voltage.png" class="img-fluid h-100"  />
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <figcaption class=" mb-5 figure-caption">Sweep Vin from 6V to 9V, zener diode current increases from 20mA to 65mA and zener diode voltage drop decreases from 4.767V to 4.7V.</figcaption>
-                            </div>
-                            <p>When the input voltage is kept constant (i.e. 6V) and load current is swept from 100mA to 500mA, the output voltage is relatively stable.</p>
-                            <div class="d-flex justify-content-center mb-3" style="height: 400px;">
-                                <img src="../img/inductivecharger/sweep_load_current.png" class="img-fluid h-100"  />
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
-            </div>
-        </div>
-
-
-        <div style="background-color: white">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4 class="pt-serif">—Simulation</h4>
-                    </div>
-                    <div class="col-md">
-                        <p>Before prototyping the circuit, I downloaded LTSpice models and simulated the second-half of the circuit (from the comparator to the output) to ensure proper functionality.</p>
-                        <img src="../img/classdamp/amp_sim.png" class="img-fluid"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="background-color: white;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4 class="pt-serif">—Schematic</h4>
-                    </div>
-                    <div class="col-md">
-                        <img src="../img/classdamp/amp_schematic.png" class='img-fluid'/>
-                    </div>
-                </div>
-            </div>
-        </div>
                 
+            <div class="row py-3">
+                <div class="col-md-4">
+                    <h5 class="pt-serif">DC/DC Converter</h5>
+                </div>
+                <div class="col-md">
+                    <div class="col-md-4 d-none d-md-block"></div>
+                    <p>The flyback converter outputs 12V/0.5A, and the input to the TX oscillator should be 5V. So I added a DC/DC converter (also using TI Webench) to do the conversion.</p>
+                    <div class="d-flex justify-content-center mb-3" style="height: 400px;">
+                        <img src="../img/inductivecharger/buck.png" class="img-fluid h-100"  />
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+            <div style="background-color:  white;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4 class="pt-serif">—Simulations</h4>
+                        </div>
+                        <div class="col-md">
+                            <p>I ran simulations in LTSpice to ensure that the wireless charger operated as intended. Even though the coupling coefficient on Wurth Electronic's tool was 0.65, I tested with 0.4 to ensure that even if the alignment was not ideal that the circuit would still function as expected. </p>
+                        
+                            <div class="mx-auto col-md py-3">
+                                <img src="../img/inductivecharger/sim_circuit.png" class="img-fluid" />
+                            </div>
+                            <div class="mx-auto col-md">
+                                <img src="../img/inductivecharger/sim_coil_resonance.png" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-5 figure-caption">FFT of TX frequency and RX frequency</figcaption>
+                                </div>
+                            </div>
+                            <p>With the secondary frequency set to resonance, it maximizes the output power. Since the output from the regulator should be 5V/500mA, I can adjust the secondary resonant capacitor to set the output to the correct level. </p>
+                            <div class="mx-auto col-md">
+                                <img src="../img/inductivecharger/sim_res_output.png" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-5 figure-caption">Cs=100nF to set secondary frequency to 100kHz (resonance)</figcaption>
+                                </div>
+                            </div>
+                            <div class="mx-auto col-md">
+                                <img src="../img/inductivecharger/sim_res_output2.png" class="img-fluid" />
+                                <div class="d-flex justify-content-center">
+                                    <figcaption class=" mb-5 figure-caption">Cs=170nF to set output voltage to correct level</figcaption>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color:  #f9f9f9;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4 class="pt-serif">—Final Schematics</h4>
+                        </div>
+                        <div class="col-md">
+                            <p>I designed the schematics in Altium (will upload soon)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color:  white;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4 class="pt-serif">—Board Layout</h4>
+                        </div>
+                        <div class="col-md">
+                            <p>Work in progress...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+
+
 
  
-        <div style="background-color: white;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4 class="pt-serif">—Prototype</h4>
-                    </div>
-                    <div class="col-md">
-                        <p>Before designing the PCB layout, I breadboarded the circuit to tune the deadtime generator circuit and verify circuit functionality. </p>
-                        <img src="../img/classdamp/prototype_setup.jpeg" class="img-fluid mb-3" />
-                        <div class="row">
-                            <div class="d-flex flex-column col-md">
-                                <img src="../img/classdamp/comparator_prototype.JPG" class="img-fluid" style="height: 251px;" />
-                                <div class="d-flex justify-content-center">
-                                    <figcaption class=" mb-3 figure-caption">Green = audio input, Yellow = 200kHz triangle wave</figcaption>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column col-md">
-                                <img src="../img/classdamp/deadtime_prototype.JPG" class="img-fluid" />
-                                <div class="d-flex justify-content-center">
-                                    <figcaption class=" mb-3 figure-caption">Fixed deadtime insertion</figcaption>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="d-flex flex-column col-md">
-                                <img src="../img/classdamp/level_shift_prototype.JPG" class="img-fluid" style="height: 256px;" />
-                                <div class="d-flex justify-content-center">
-                                    <figcaption class=" mb-3 figure-caption">Level shifted NMOS and PMOS gate drivers</figcaption>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column col-md">
-                                <img src="../img/classdamp/half_bridge_output.JPG" class="img-fluid" />
-                                <div class="d-flex justify-content-center">
-                                    <figcaption class=" mb-3 figure-caption">Amplified digital signal</figcaption>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>  
-            </div>
-        </div>
-               
-        <div style="background-color: #f9f9f9;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4 class="pt-serif">—Modifications</h4>
-                    </div>
-                    <div class="col-md">
-                        <p>After verifying that the board functioned as expected, I started to design the board layout. I decided to power it with a single supply rail, so I had to make some modifications to the circuit. I added in a delay to the turn on time of the NMOS driver so the charge pump capacitor at the gate of the PMOS had time to charge. I also re-biased the gate drivers so the PMOS and NMOS can turn on. </p>
-                        <img src="../img/classdamp/amp_schematic_final.png" class="img-fluid" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div style="background-color: white;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4 class="pt-serif">—Board Layout</h4>
-                    </div>
-                    <div class="col-md">
-                        <p>I designed a 4-layer board that is powered using a USB-C charger. I researched splitting (or partitionign) the analog ground and switching ground, but decided to use one ground reference and keep it clean by having the layer very close (3mil) to the power plane, and using bypass capacitors and bulk capacitors to filter noise and keep the power signals steady (respectively). </p>
-                        <p>I opted for an LDO to get the +5V0 reference voltage for the op-amps and logic gates. I calculated the current draw on the +5V0 plane at 200kHz (the switching frequency), then used the LDO's datasheet to calculate power dissipation. Since the +5V0 line only draws ~5mA, I opted for the cheaper solution. I via-stitched around the regulated voltage to dissipate heat</p>
-                        <p>I also used via stitching to connect the ground planes together (the bottom layer, the second layer, and part of the top layer).</p>
-                        <div class="row">
-                            <div class="d-flex flex-column col-md">
-                                <img src="../img/classdamp/board_layout.png" class="img-fluid" style="height: 242px;" />
-                                <div class="d-flex justify-content-center">
-                                    <figcaption class=" mb-3 figure-caption">Top Layer</figcaption>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column col-md">
-                                <img src="../img/classdamp/layout_power.png" class="img-fluid" />
-                                <div class="d-flex justify-content-center">
-                                    <figcaption class=" mb-3 figure-caption">Power Plane</figcaption>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-                
-        <div style="background-color: white;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4 class="pt-serif">—Improvements</h4>
-                    </div>
-                    <div class="col-md">
-                        <p> I designed a CCM flyback for the first prototype, but the transformers required were expensive and physically large.</p>
-                    </div>
-                </div>
-            </div>
             <div class="container pb-3 d-none d-lg-block">
                 <div class="row d-flex align-items-center col-md-9 mx-auto">
                     <div class="col-md-auto">
                         <a class=" text-grey link" href="../index.html">home</a>
                     </div>
                     <div class="col-md-auto">
+                        <a class=" text-black link" href="inductivecharger.html">inductive charger</a>
+                    </div>
+                    <div class="col-md-auto">
                         <a class=" text-grey link" href="uwrobotics.html">robotics</a>
                     </div>
                     <div class="col-md-auto">
-                        <a class=" text-black link" href="classdamp.html">class-d amp</a>
+                        <a class=" text-grey link" href="classdamp.html">class-d amp</a>
                     </div>
                     <div class="col-md-auto">
                         <a class=" text-grey link" href="pressuresensor.html">pressure-sensor LED array</a>
